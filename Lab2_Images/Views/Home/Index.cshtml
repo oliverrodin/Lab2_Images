@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Images>
+
+<div class="row">
+    <div class="col-md-12 text-center">
+        <h1 class="title">Welcome to the Image Analyzer!</h1>
+        <h4 class="under-title">Click an an Image to analyze it!</h4>
+    </div>
+</div>
+
+<div class="row">
+    @foreach (var image in Model)
+    {
+        <div class="col-md-6">
+            <div class="card border-0 mb-5" >
+                <div class="card-img text-center">
+                    <a asp-action="Details" asp-route-id="@image.Id">
+                        <img src="@image.ImageUrl" class="image"/>
+                    </a>
+                    
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@await Html.PartialAsync("_CreateButton", "Home")
+

@@ -1,0 +1,112 @@
+﻿
+@using System.Drawing
+@using System.Net
+@using System.Net.Mime
+@model ImageAnalysisViewModel
+@{
+
+    
+    
+}
+
+
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <center>
+                            <h4>Details</h4>
+                        </center>
+                    </div>
+                </div>
+                <div>
+                    <hr />
+                </div>
+                <div class="row">
+                    
+                    <div class="col-md-6">
+                        @if (Model.ImageAnalysisResult.Description.Captions.Count > 0)
+                        {
+                            <p class="card-text">
+                                <b>Description: </b>
+                                @foreach (var caption in Model.ImageAnalysisResult.Description.Captions)
+                                {
+                                    <span> @caption.Text (confidence: @caption.Confidence.ToString("P"))</span><br/>
+                                }
+                            </p>
+                        }
+                        @if (Model.ImageAnalysisResult.Categories.Count > 0)
+                        {
+                            <p class="card-text">
+                                <b>Category: </b>
+                                @foreach (var category in Model.ImageAnalysisResult.Categories)
+                                {
+                                    <span> @category.Name (confidence: @category.Score.ToString("P"))</span><br/>
+                                }
+                            </p>
+                        }
+                        @if (Model.ImageAnalysisResult.Tags.Count > 0)
+                        {
+                            <p class="card-text">
+                                <b>Tags: </b>
+                                @foreach (var tag in Model.ImageAnalysisResult.Tags)
+                                {
+                                    <span> @tag.Name (confidence: @tag.Confidence.ToString("P"))</span><br/>
+                                }
+                            </p>
+                        }
+                        @if (Model.ImageAnalysisResult.Objects.Count > 0)
+                        {
+
+                            <p class="card-text">
+                                <b>Object Detection: </b>
+                                @foreach (var obj in Model.ImageAnalysisResult.Objects)
+                                {
+                                    <span> @obj.ObjectProperty (confidence: @obj.Confidence.ToString("P"))</span><br/>
+
+
+                                    
+                                }
+                                    
+                                
+                            </p>
+                            
+                        }
+                        @if (Model.ImageAnalysisResult.Faces.Count > 0)
+                        {
+                            <p class="card-text">
+                                <b>Face Detection: </b>
+                                @foreach (var face in Model.ImageAnalysisResult.Faces)
+                                {
+                                    <span> A @face.Gender of age @face.Age.</span><br/>
+                                }
+                            </p>
+                        }
+                        <p class="card-text">
+                            <b>Image color scheme </b>
+                            <span> Black and with: @Model.ImageAnalysisResult.Color.IsBWImg</span><br/>
+                            <span> Accent color: @Model.ImageAnalysisResult.Color.AccentColor</span><br/>
+                            <span> Dominant background color: @Model.ImageAnalysisResult.Color.DominantColorBackground</span><br/>
+                            <span> Dominant foreground color: @Model.ImageAnalysisResult.Color.DominantColorForeground</span>
+
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="@Model.ImageUrl" width="100%" style="text-align: center;" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div>
+                        <hr/>
+                    </div>
+                    <div>
+                        <a asp-action="Index" class="btn btn-outline-danger opacity-50 float-end">Back to list</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
